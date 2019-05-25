@@ -1,0 +1,166 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Rental Manager</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="scss/index.scss" rel="stylesheet">
+  <script src="js/bundle.js" async defer></script>
+</head>
+<body>
+<div id="wrapper">
+
+  <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
+      <div class="sidebar-brand-text mx-3">Rental Manager</div>
+    </a>
+    <hr class="sidebar-divider">
+
+    <div class="sidebar-heading">
+    一般
+    </div>
+
+    <li class="nav-item active">
+      <a class="nav-link" href="loan.html">
+        <i class="fas fa-fw fa-sign-out-alt"></i>
+        <span>貸出</span>
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link" href="return.html">
+        <i class="fas fa-fw fa-sign-in-alt"></i>
+        <span>返却</span>
+      </a>
+    </li>
+
+    <div class="sidebar-heading">
+      管理
+    </div>
+
+    <li class="nav-item">
+      <a class="nav-link" href="edit.list.html">
+        <i class="fas fa-fw fa-tools"></i>
+        <span>物品エディタ</span>
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link" href="edit.user.html">
+        <i class="fas fa-fw fa-users"></i>
+        <span>ユーザエディタ</span>
+      </a>
+    </li>
+
+    <div class="sidebar-heading">
+      その他
+    </div>
+
+    <li class="nav-item">
+      <a class="nav-link" href="about.html">
+        <i class="fas fa-fw fa-info-circle"></i>
+        <span>About</span>
+      </a>
+    </li>
+
+    <hr class="sidebar-divider d-none d-md-block">
+    <div class="text-center d-none d-md-inline">
+      <button class="rounded-circle border-0" id="sidebarToggle"></button>
+    </div>
+  </ul>
+
+  <div id="content-wrapper" class="d-flex flex-column">
+    <div id="content">
+      <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+          <i class="fa fa-bars"></i>
+        </button>
+
+        <span class="navbar-brand mb-0 h1">貸出</span>
+
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link disabled"><span id="logged_in"></span> としてログイン中</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="index.html"><b>ログアウト</b></a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="container-fluid">
+
+        <div class="card shadow mb-4">
+          <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">物品リスト</h6>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                <tr>
+                  <th>場所</th>
+                  <th>品名</th>
+                  <th>総数</th>
+                  <th>貸出中</th>
+                  <th>選択</th>
+                </tr>
+                </thead>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <p>
+          <small><i class="fas fa-fw fa-lightbulb"></i> 貸出数がMAXの物品はこの画面では非表示になります。</small>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<a class="scroll-to-top rounded" href="#">
+  <i class="fas fa-angle-up"></i>
+</a>
+
+<button class="save btn btn-bg btn-block btn-success" style="display: none;" onclick="M.loan.open()"><b id="save_count"></b> アイテムを貸出</button>
+
+<div class="modal fade" id="loanModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">新規貸出</h5>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        下記の物品を貸出状態にします。:<br>
+        <b id="loan_list"></b>
+        <hr>
+        <div class="row">
+          <div class="col">
+            <input type="number" class="form-control" placeholder="クラス" id="new_class">
+          </div>
+          <div class="col">
+            <input type="number" class="form-control" placeholder="出席番号" id="new_number">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-block btn-success" type="button" onclick="M.loan.excuse()">貸出</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  window.ready = () => {
+    M.login.check();
+    M.table.draw('list', {
+      hide_max: true
+    });
+  }
+</script>
+</body>
+</html>

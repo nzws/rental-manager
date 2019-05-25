@@ -1,0 +1,16 @@
+.M_toast {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  padding: 15px;
+  margin: 10px;
+  max-width: calc(100% - 20px);
+  transition: 0.3s ease;
+  z-index: 99999;
+  opacity: 0;
+  border-radius: 0.3rem;
+}
+
+.M_toast.show {
+  opacity: 1;
+}

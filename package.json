@@ -1,0 +1,67 @@
+{
+  "name": "rental-manager",
+  "version": "1.0.0",
+  "description": "A Rental Manager using Electron",
+  "main": "main.js",
+  "repository": "https://yuzulabo@github.com/yuzulabo/rental-manager.git",
+  "author": "nzws <git@nzws.me>",
+  "license": "LGPL-3.0",
+  "private": true,
+  "scripts": {
+    "lint:css": "stylelint **/*.scss",
+    "lint:js": "eslint \"**/*.js\"",
+    "lint:html": "htmlhint src/**/*.html",
+    "lint": "npm-run-all lint:* -s",
+    "fmt:css": "stylelint --fix **/*.scss && prettier --write \"**/*.{css,scss}\"",
+    "fmt:js": "prettier --write \"**/*.js\"",
+    "fmt:md": "prettier --write \"**/*.md\"",
+    "fmt:json": "prettier --write \"**/*.json\"",
+    "fmt": "npm-run-all fmt:* -s",
+    "build": "parcel build src/index.html -d dist/ --public-url ./ --target=electron && electron-builder -mw",
+    "watch": "parcel src/index.html -d dist/ --public-url ./ --target=electron",
+    "start": "NODE_ENV=development electron ."
+  },
+  "build": {
+    "productName": "Rental Manager",
+    "appId": "me.nzws.app.rental_manager",
+    "directories": {
+      "output": "build"
+    },
+    "mac": {
+      "target": "dmg",
+      "category": "public.app-category.productivity"
+    },
+    "win": {
+      "target": "nsis"
+    },
+    "files": [
+      "main.js",
+      "dist/*"
+    ]
+  },
+  "devDependencies": {
+    "electron-builder": "^20.41.0",
+    "electron-reload": "^1.4.0",
+    "eslint": "^5.16.0",
+    "eslint-config-prettier": "^4.3.0",
+    "htmlhint": "^0.11.0",
+    "npm-run-all": "^4.1.5",
+    "parcel-bundler": "^1.12.3",
+    "prettier": "^1.17.1",
+    "prettier-stylelint": "^0.4.2",
+    "sass": "^1.20.1",
+    "stylelint": "^10.0.1",
+    "stylelint-config-standard": "^18.3.0",
+    "electron": "^5.0.2"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.8.2",
+    "bootstrap": "^4.3.1",
+    "datatables.net-bs4": "^1.10.19",
+    "electron-store": "^3.2.0",
+    "jquery": "^3.4.1",
+    "popper.js": "^1.15.0",
+    "startbootstrap-sb-admin-2": "^4.0.4",
+    "turbolinks": "^5.2.0"
+  }
+}
