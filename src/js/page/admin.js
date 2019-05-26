@@ -30,8 +30,6 @@ export default {
         name,
         password
       });
-
-      move.reload();
     } else if (type === 'list') {
       const place = kit.elemId('new_place').value;
       const name = kit.elemId('new_name').value;
@@ -50,9 +48,9 @@ export default {
         loan_count: 0
       });
       storage.set('list', data);
-
-      move.reload();
     }
+
+    move.reload();
   },
   delete(object) {
     const type = object.dataset.type;
@@ -89,5 +87,14 @@ export default {
     }
 
     move.reload();
+  },
+  restoreDraft() {
+    const data = storage.get('list');
+    if (!data || !data[data.length - 1] || data[data.length - 1].is_deleted) return;
+    const last = data[data.length - 1];
+
+    kit.elemId('new_place').value = last.place;
+    kit.elemId('new_name').value = last.name;
+    kit.elemId('new_count').value = last.count;
   }
 };
