@@ -1,6 +1,8 @@
 # rental-manager
 
-A Rental Manager using Electron
+> A Rental Manager using Electron
+
+![screenshot](https://i.imgur.com/Q425dCX.png)
 
 # Install
 
