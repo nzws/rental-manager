@@ -90,7 +90,8 @@ export default {
   },
   restoreDraft() {
     const data = storage.get('list');
-    if (!data || !data[data.length - 1] || data[data.length - 1].is_deleted) return;
+    if (!data || !data[data.length - 1] || data[data.length - 1].is_deleted)
+      return;
     const last = data[data.length - 1];
 
     kit.elemId('new_place').value = last.place;

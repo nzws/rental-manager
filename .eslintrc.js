@@ -11,6 +11,6 @@ module.exports = {
     sourceType: 'module'
   },
   globals: {
-    '$': false
+    $: false
   }
 };
