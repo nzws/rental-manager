@@ -42,7 +42,7 @@ export default {
         number
       });
 
-      list[index].loan_count++;
+      list[index].is_loan = true;
     });
 
     storage.set('list', list);
@@ -50,5 +50,49 @@ export default {
 
     $('#loanModal').modal('hide');
     move.reload();
+  },
+  showNarrow() {
+    let html = '';
+
+    const type = kit.elemId('narrow').value;
+    if (type) {
+      const list = storage.get('list');
+      const narrow = [];
+
+      list.forEach(data => {
+        if (narrow.indexOf(data[type]) === -1 && !data.is_deleted) {
+          narrow.push(data[type]);
+        }
+      });
+
+      narrow.forEach(id => {
+        html += `<tr onclick="M.loan.excuseNarrow(this)"><td>${id}</td></tr>`;
+      })
+    } else {
+      this.excuseNarrow(null);
+    }
+
+    kit.elemId('narrowList').innerHTML = html;
+  },
+  excuseNarrow(object) {
+    table.destroy();
+    if (!object) {
+      table.draw('list', {
+        hide_max: true
+      });
+      return;
+    }
+
+    this.showNarrow();
+
+    const data = object.firstChild;
+    const type = kit.elemId('narrow').value;
+    data.className = 'clicked';
+
+    table.draw('list', {
+      hide_max: true,
+      type,
+      narrow: data.textContent
+    });
   }
 };

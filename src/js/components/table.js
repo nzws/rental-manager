@@ -10,7 +10,7 @@ export default {
 
     this.export();
     datatables(window, $);
-    $('#dataTable').DataTable({
+    window.table = $('#dataTable').DataTable({
       data,
       order: [[0, 'asc']],
       language: {
@@ -31,6 +31,9 @@ export default {
         }
       }
     });
+  },
+  destroy() {
+    return window.table.destroy();
   },
   draw(type, option = {}) {
     const data = storage.get(type);
@@ -57,14 +60,19 @@ export default {
       case 'list':
         data.forEach((value, index) => {
           if (value.is_deleted) return;
-          if (value.count <= value.loan_count && option.hide_max) return;
+          if (value.is_loan && option.hide_max) return;
 
-          formatted.push([
+          const btn = `<button class="btn btn-sm btn-outline-secondary btn-block" data-id="${index}" onclick="M.table.check(this)"><i class="fas fa-square"></i></button>`;
+
+          formatted.push(option.hide_max ? [
             value.place,
             value.name,
-            value.count,
-            value.loan_count,
-            `<button class="btn btn-sm btn-outline-secondary btn-block" data-id="${index}" onclick="M.table.check(this)"><i class="fas fa-square"></i></button>`
+            btn
+          ] : [
+            value.place,
+            value.name,
+            value.is_loan ? 'はい' : 'いいえ',
+            btn
           ]);
         });
         break;

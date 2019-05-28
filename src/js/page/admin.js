@@ -33,7 +33,7 @@ export default {
     } else if (type === 'list') {
       const place = kit.elemId('new_place').value;
       const name = kit.elemId('new_name').value;
-      const count = kit.elemId('new_count').value;
+      const count = parseInt(kit.elemId('new_count').value);
 
       if (!place || !name || !count) {
         toast.new('必要事項が記入されていません。', '.bg-danger');
@@ -41,12 +41,16 @@ export default {
       }
 
       const data = storage.get('list') || [];
-      data.push({
-        place,
-        name,
-        count: parseInt(count),
-        loan_count: 0
-      });
+
+      for (let i = 1; i <= count; i++) {
+        data.push({
+          place,
+          category: name,
+          name: name + i,
+          is_loan: false
+        });
+      }
+
       storage.set('list', data);
     }
 
@@ -78,7 +82,7 @@ export default {
       ddata.forEach(value => {
         if (loan[value]) {
           loan[value].is_deleted = true;
-          list[loan[value].id].loan_count--;
+          list[loan[value].id].is_loan = false;
         }
       });
 
@@ -95,7 +99,5 @@ export default {
     const last = data[data.length - 1];
 
     kit.elemId('new_place').value = last.place;
-    kit.elemId('new_name').value = last.name;
-    kit.elemId('new_count').value = last.count;
   }
 };

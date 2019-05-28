@@ -1,0 +1,9 @@
+#narrowList {
+  tr {
+    cursor: pointer;
+
+    td.clicked {
+      font-weight: bold;
+    }
+  }
+}
