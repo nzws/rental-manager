@@ -70,6 +70,7 @@ export default {
       })
     } else {
       this.excuseNarrow(null);
+      $('#narrow_note').hide();
     }
 
     kit.elemId('narrowList').innerHTML = html;
@@ -83,16 +84,15 @@ export default {
       return;
     }
 
-    this.showNarrow();
-
     const data = object.firstChild;
     const type = kit.elemId('narrow').value;
-    data.className = 'clicked';
 
     table.draw('list', {
       hide_max: true,
       type,
       narrow: data.textContent
     });
+    $('#narrow_note').show();
+    kit.elemId('narrow_note_text').textContent = `${type} > ${data.textContent}`;
   }
 };

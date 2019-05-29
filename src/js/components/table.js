@@ -61,6 +61,7 @@ export default {
         data.forEach((value, index) => {
           if (value.is_deleted) return;
           if (value.is_loan && option.hide_max) return;
+          if (option.type && value[option.type] !== option.narrow) return;
 
           const btn = `<button class="btn btn-sm btn-outline-secondary btn-block" data-id="${index}" onclick="M.table.check(this)"><i class="fas fa-square"></i></button>`;
 
