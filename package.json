@@ -1,6 +1,6 @@
 {
   "name": "rental-manager",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "A Rental Manager using Electron",
   "main": "main.js",
   "repository": "https://yuzulabo@github.com/yuzulabo/rental-manager.git",

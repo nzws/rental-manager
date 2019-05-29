@@ -82,7 +82,7 @@ export default {
       ddata.forEach(value => {
         if (loan[value]) {
           loan[value].is_deleted = true;
-          list[loan[value].id].is_loan = false;
+          if (list[loan[value].id]) list[loan[value].id].is_loan = false;
         }
       });
 
